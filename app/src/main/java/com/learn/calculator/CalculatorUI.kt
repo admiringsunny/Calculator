@@ -56,7 +56,7 @@ fun CalculatorUI(
                 textAlign = TextAlign.Center
             )
         }
-// 2nd row -> Query area
+// 2nd row -> answer area
         Box(
             modifier = Modifier
                 .weight(1f)
@@ -75,7 +75,7 @@ fun CalculatorUI(
                 fontWeight = FontWeight.Bold
             )
         }
-// 3rd row -> answer area
+// 3rd row -> Query area
         Box(
             modifier = Modifier
                 .weight(1f)
