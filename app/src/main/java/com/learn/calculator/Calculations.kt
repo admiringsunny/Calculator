@@ -27,16 +27,19 @@ fun updateQueryText(
             answer.value = ""
         }
 
-        "%" -> {}
-
-        "+", "-", "*", "/" -> {
+        "+", "-", "*", "/", "%" -> {
             if (queryText.value.isNotEmpty()) {
                 val calculateResult = calculateResult(queryText.value)
-                if (queryText.value.last() in "+-*/") {
+                if (queryText.value.last() in "+-*/%") {
                     // replace last operator with new
                     queryText.value = queryText.value.dropLast(1)
                 }
                 queryText.value = calculateResult + btnValue
+
+                if (queryText.value.endsWith("%")) {
+                    answer.value = calculateResult(queryText.value)
+                    queryText.value = ""
+                }
             }
         }
 
@@ -60,7 +63,7 @@ fun calculateResult(expression: String): String {
         if (expression.isEmpty())
             return "Error"
         val operatorIndex = expression.indexOfAny(
-            charArrayOf('+', '-', '*', '/'),
+            charArrayOf('+', '-', '*', '/', '%'),
             startIndex = 1
         )
 
@@ -75,6 +78,7 @@ fun calculateResult(expression: String): String {
             '-' -> num1 - num2
             '*' -> num1 * num2
             '/' -> num1 / num2
+            '%' -> num1 / 100
             else -> return "Error"
         }
         if (answer.isFinite())
